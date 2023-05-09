@@ -1,19 +1,12 @@
-<!DOCTYPE html>
-<html lang="en-US">
+<html>
   <head>
-    <title>Shape Tracker</title>
+    <script type="text/javascript" src="utilities.js"></script>
+    <title>Grow Your Plant</title>
   </head>
-<body>
-  <h3>Enter three lengths to determine if they can make a triangle.</h3>
-  <form id="triangle-checker-form">
-    <label for="length1">Enter a number:</label>
-    <input id="length1" type="number">
-    <label for="length2">Enter a number:</label>
-    <input id="length2" type="number">
-    <label for="length3">Enter a number:</label>
-    <input id="length3" type="number">
-    <button type="submit">Submit</button>
-  </form>
-  <div id="response"></div>
-</body>
+  <body>
+    <button id="feed">Add soil</button>
+    <button id="show-state">Current Stats</button>
+    <h1>Your Plant's Values</h1>
+    <h3><div id="soil-value">0</div></h3>
+  </body>
 </html>
