@@ -9,20 +9,8 @@ export function changeState (prop) {
     return (state) => ({
       ...state,
       [prop] : (state[prop] || 0) + value
-    })
-  }
-}
-
-/**
- * Adds two numerical values.
- * @deprecated Just add the numbers, dork.
- * @param {Number} a the first number
- * @param {Number} b the second number
- * @returns {Number} the two numbers added together.
- * ## Whaaaa
- */
-function addsTwo(a, b) {
-  return a + b;
+    });
+  };
 }
 
 /**
@@ -39,12 +27,17 @@ export const hydrate = changeState("water")(1);
  * Increases the soil value by 5.
  * @example const newState = stateControl(blueFood);
  */
-export const blueFood = changeState("soil")(5)
+export const blueFood = changeState("soil")(5);
 
 /**
  * Increases water value by 5.
  */
 export const superWater = changeState("water")(5);
+
+/**
+ * Increases light value.
+ */
+export const giveLight = changeState("light")(1);
 
 export const storeState = () => {
   let currentState = {};
@@ -52,24 +45,45 @@ export const storeState = () => {
     const newState = stateChangeFunction(currentState);
     currentState = {...newState};
     return newState;
-  }
-}
+  };
+};
 
 const stateControl = storeState();
 
-// export const giveLight = changeState("light");
 // export const greenFood = changeState("soil")(10)
 // export const yuckyFood = changeState("soil")(-5)
 
 window.onload = function() {
 
   document.getElementById('feed').onclick = function (){
+    const newState = stateControl(feed);
+    document.getElementById('soil-value').innerText = `Soil: ${newState.soil}`;
+  };
+
+  document.getElementById('water').onclick = function (){
+    const newState = stateControl(hydrate);
+    document.getElementById('water-value').innerText = `Hydration: ${newState.water}`;
+  };
+
+  document.getElementById('light').onclick = function (){
+    const newState = stateControl(giveLight);
+    document.getElementById('light-value').innerText = `Light: ${newState.light}`;
+  };
+
+  document.getElementById('repot').onclick = function (){
     const newState = stateControl(blueFood);
     document.getElementById('soil-value').innerText = `Soil: ${newState.soil}`;
+  };
+
+  document.getElementById('soak').onclick = function (){
+    const newState = stateControl(superWater);
+    document.getElementById('water-value').innerText = `Hydration: ${newState.water}`;
   };
 
   document.getElementById('show-state').onclick = function() {
     const currentState = stateControl();
     document.getElementById('soil-value').innerText = `Soil: ${currentState.soil}`;
-  }
-}
+    document.getElementById('water-value').innerText = `Hydration: ${currentState.water}`;
+    document.getElementById('light-value').innerText = `Light: ${currentState.water}`;
+  };
+};
